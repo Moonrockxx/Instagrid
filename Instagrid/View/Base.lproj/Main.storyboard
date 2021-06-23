@@ -128,6 +128,7 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="TYI-yl-v1h" appends="YES" id="uxL-vE-wpJ"/>
+                                    <outletCollection property="gestureRecognizers" destination="srJ-eR-GnC" appends="YES" id="Ydr-3S-fuM"/>
                                 </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="PhE-z0-lZt" userLabel="Button Stack View">
@@ -251,6 +252,11 @@
                 <swipeGestureRecognizer direction="up" id="TYI-yl-v1h">
                     <connections>
                         <action selector="swipeForShareGesture:" destination="BYZ-38-t0r" id="Hig-O1-g6s"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="srJ-eR-GnC">
+                    <connections>
+                        <action selector="swipeForShareGesture:" destination="BYZ-38-t0r" id="7sh-vf-vgg"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
