@@ -126,6 +126,9 @@
                                     <constraint firstAttribute="trailing" secondItem="gKJ-3Y-e9Q" secondAttribute="trailing" constant="10" id="ZbW-sk-cTW"/>
                                     <constraint firstItem="gKJ-3Y-e9Q" firstAttribute="top" secondItem="V86-zY-Z9p" secondAttribute="top" constant="10" id="rVF-TG-P3x"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="TYI-yl-v1h" appends="YES" id="uxL-vE-wpJ"/>
+                                </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="PhE-z0-lZt" userLabel="Button Stack View">
                                 <rect key="frame" x="30" y="743.5" width="354" height="88.5"/>
@@ -174,6 +177,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="arrowImage" destination="FcR-g7-Vla" id="U2l-y1-33Q"/>
                         <outlet property="firstLayoutButton" destination="ziA-g0-oO8" id="2o7-yn-Ztq"/>
                         <outlet property="gridBottomLeft" destination="fmZ-9i-Nk6" id="z2n-QP-B4x"/>
                         <outlet property="gridBottomRight" destination="V5T-YZ-GAN" id="dRC-Ut-0yp"/>
@@ -188,6 +192,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="TYI-yl-v1h">
+                    <connections>
+                        <action selector="swipeForShareGesture:" destination="BYZ-38-t0r" id="Hig-O1-g6s"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="139" y="124"/>
         </scene>

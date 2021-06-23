@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     // MARK: IBOutlets
     // - Swipe Label
     @IBOutlet weak var swipeLabel: UILabel!
+    @IBOutlet weak var arrowImage: UIImageView!
     
     // - Grid View
     @IBOutlet weak var gridView: UIView!
@@ -39,7 +40,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        selectLayout1((Any).self)
     }
     
     // MARK: - IBAction
@@ -83,11 +84,72 @@ class ViewController: UIViewController {
     }
     
     @IBAction func selectedSquare(_ sender: UIButton) {
-//        squareSelected = sender
-//        selectPictureInLibrary()
-//        print(sender.tag)
+        squareSelected = sender
+        selectPictureInLibrary()
+        print(sender.tag)
     }
     
+    @IBAction func swipeForShareGesture(_ sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case .up where UIDevice.current.orientation.isLandscape == false :
+            self.shareAnimation(x: 0, y: -700)
+            showShareSheet()
+        case .left where UIDevice.current.orientation.isLandscape == true :
+            self.shareAnimation(x: -700, y: 0)
+            showShareSheet()
+        default :
+            print("wrong direction")
+            break
+        }
+    }
+    
+    // MARK: Functions
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            self.swipeLabel.text = "Swipe left to share"
+            self.arrowImage.image = UIImage(named: "Arrow Left")
+        } else {
+            self.swipeLabel.text = "Swipe up to share"
+        }
+    }
+    
+    func selectPictureInLibrary() {
+        let imagePickerController = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePickerController.sourceType = .photoLibrary
+        }
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func viewToImage(view: UIView) -> UIImage? {
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return UIImage(cgImage: image!.cgImage!)
+    }
+    
+    private func shareAnimation(x: CGFloat, y: CGFloat) {
+        UIView.animate(withDuration: 0.75, animations: {
+            self.gridView.transform = CGAffineTransform(translationX: x, y: y)
+        })
+    }
+    
+    func showShareSheet() {
+        let items = viewToImage(view: gridView)
+        let ac = UIActivityViewController(activityItems: [items as Any], applicationActivities: [])
+        ac.completionWithItemsHandler = {
+            (activityType, completed, _, error) in
+            if completed {
+                self.shareAnimation(x: 0, y: 0)
+            } else {
+                self.shareAnimation(x: 0, y: 0)
+            }
+        }
+        present(ac, animated: true)
+    }
 }
 
 // MARK: Extensions
