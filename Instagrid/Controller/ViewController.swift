@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class ViewController: UIViewController {
     
@@ -120,12 +121,26 @@ class ViewController: UIViewController {
     }
     
     private func selectPictureInLibrary() {
-        let imagePickerController = UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePickerController.sourceType = .photoLibrary
+        //
+        
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized, .limited:
+                let imagePickerController = UIImagePickerController()
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    imagePickerController.sourceType = .photoLibrary
+                }
+                imagePickerController.delegate = self
+                self.present(imagePickerController, animated: true, completion: nil)
+            case .notDetermined:
+                break
+            case .restricted, .denied:
+                break
+                // - Alerte ici
+            @unknown default:
+                <#code#>
+            }
         }
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
     }
     
     private func viewToImage(view: UIView) -> UIImage? {
