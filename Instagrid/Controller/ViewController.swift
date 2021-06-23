@@ -15,8 +15,8 @@ class ViewController: UIViewController {
         case firstLayout, secondLayout, thirdLayout
     }
     
-    var squareSelected = UIButton()
-    var selectedLayoutImage = UIImage(named: "Selected")
+    private var squareSelected = UIButton()
+    private var selectedLayoutImage = UIImage(named: "Selected")
     
     // MARK: IBOutlets
     // - Swipe Label
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func selectPictureInLibrary() {
+    private func selectPictureInLibrary() {
         let imagePickerController = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePickerController.sourceType = .photoLibrary
@@ -128,7 +128,7 @@ class ViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func viewToImage(view: UIView) -> UIImage? {
+    private func viewToImage(view: UIView) -> UIImage? {
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -142,7 +142,7 @@ class ViewController: UIViewController {
         })
     }
     
-    func showShareSheet() {
+    private func showShareSheet() {
         let items = viewToImage(view: gridView)
         let ac = UIActivityViewController(activityItems: [items as Any], applicationActivities: [])
         ac.completionWithItemsHandler = {
@@ -156,7 +156,7 @@ class ViewController: UIViewController {
         present(ac, animated: true)
     }
     
-    func clearGridView() {
+    private func clearGridView() {
         for picker in allImagePickers {
             picker.setImage(UIImage(named: "Plus"), for: .normal)
         }
