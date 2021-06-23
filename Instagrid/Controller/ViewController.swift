@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var gridBottomLeft: UIButton!
     @IBOutlet weak var gridBottomRight: UIButton!
     @IBOutlet weak var rectangleBottom: UIButton!
+    @IBOutlet var allImagePickers: [UIButton]!
     
     // - Layout buttons
     @IBOutlet weak var firstLayoutButton: UIButton!
@@ -55,6 +56,7 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = false
         thirdLayoutButton.isSelected = false
         firstLayoutButton.setImage(selectedLayoutImage, for: .selected)
+        clearGridView()
     }
     
     @IBAction func selectLayout2(_ sender: Any) {
@@ -68,6 +70,7 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = true
         thirdLayoutButton.isSelected = false
         secondLayoutButton.setImage(selectedLayoutImage, for: .selected)
+        clearGridView()
     }
     
     @IBAction func selectLayout3(_ sender: Any) {
@@ -81,6 +84,7 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = false
         thirdLayoutButton.isSelected = true
         thirdLayoutButton.setImage(selectedLayoutImage, for: .selected)
+        clearGridView()
     }
     
     @IBAction func selectedSquare(_ sender: UIButton) {
@@ -111,6 +115,7 @@ class ViewController: UIViewController {
             self.arrowImage.image = UIImage(named: "Arrow Left")
         } else {
             self.swipeLabel.text = "Swipe up to share"
+            self.arrowImage.image = UIImage(named: "Arrow Up")
         }
     }
     
@@ -149,6 +154,12 @@ class ViewController: UIViewController {
             }
         }
         present(ac, animated: true)
+    }
+    
+    func clearGridView() {
+        for picker in allImagePickers {
+            picker.setImage(UIImage(named: "Plus"), for: .normal)
+        }
     }
 }
 

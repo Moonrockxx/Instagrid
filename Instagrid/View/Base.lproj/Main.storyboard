@@ -246,6 +246,10 @@
                         <outlet property="secondLayoutButton" destination="BGy-gS-7MW" id="PWD-Fh-z2F"/>
                         <outlet property="swipeLabel" destination="2I1-jD-ad3" id="HXI-kq-lp2"/>
                         <outlet property="thirdLayoutButton" destination="o37-aY-bZE" id="4ec-Xx-vgZ"/>
+                        <outletCollection property="allImagePickers" destination="UmI-LF-Pch" collectionClass="NSMutableArray" id="Thq-VG-Dit"/>
+                        <outletCollection property="allImagePickers" destination="fmZ-9i-Nk6" collectionClass="NSMutableArray" id="hgM-B9-U8o"/>
+                        <outletCollection property="allImagePickers" destination="NFd-EH-DY5" collectionClass="NSMutableArray" id="Lgs-V0-sF4"/>
+                        <outletCollection property="allImagePickers" destination="V5T-YZ-GAN" collectionClass="NSMutableArray" id="DcQ-Iq-lCl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
