@@ -90,7 +90,7 @@ class ViewController: UIViewController {
     
     @IBAction func selectedSquare(_ sender: UIButton) {
         squareSelected = sender
-        selectPictureInLibrary()
+        checkLibraryPermission()
         print(sender.tag)
     }
     
@@ -120,27 +120,30 @@ class ViewController: UIViewController {
         }
     }
     
-    private func selectPictureInLibrary() {
-        //
-        
-        PHPhotoLibrary.requestAuthorization { (status) in
+    func checkLibraryPermission() {
+        PHPhotoLibrary.requestAuthorization { status in
             switch status {
             case .authorized, .limited:
-                let imagePickerController = UIImagePickerController()
-                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                    imagePickerController.sourceType = .photoLibrary
+                DispatchQueue.main.async {
+                    let imagePickerController = UIImagePickerController()
+                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                        imagePickerController.sourceType = .photoLibrary
+                    }
+                    imagePickerController.delegate = self
+                
+                    self.present(imagePickerController, animated: true, completion: nil)
                 }
-                imagePickerController.delegate = self
-                self.present(imagePickerController, animated: true, completion: nil)
+            case .restricted, .denied:
+                DispatchQueue.main.async {
+                    self.presentAlert(viewController: self, title: "Access Denied", message: "")
+                }
             case .notDetermined:
                 break
-            case .restricted, .denied:
+            default:
                 break
-                // - Alerte ici
-            @unknown default:
-                <#code#>
             }
         }
+        
     }
     
     private func viewToImage(view: UIView) -> UIImage? {
@@ -193,4 +196,14 @@ extension ViewController: UIImagePickerControllerDelegate & UINavigationControll
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    func presentAlert(viewController: UIViewController, title: String, message: String) {
+          let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+          
+          // add an action (button)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+          
+          // show the alert
+            viewController.present(alert, animated: true, completion: nil)
+        }
 }
