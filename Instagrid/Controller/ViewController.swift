@@ -56,7 +56,6 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = false
         thirdLayoutButton.isSelected = false
         firstLayoutButton.setImage(selectedLayoutImage, for: .selected)
-        clearGridView()
     }
     
     // - Update view when the second layout button is touched
@@ -71,7 +70,6 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = true
         thirdLayoutButton.isSelected = false
         secondLayoutButton.setImage(selectedLayoutImage, for: .selected)
-        clearGridView()
     }
     
     // - Update view when the third layout button is touched
@@ -86,7 +84,6 @@ class ViewController: UIViewController {
         secondLayoutButton.isSelected = false
         thirdLayoutButton.isSelected = true
         thirdLayoutButton.setImage(selectedLayoutImage, for: .selected)
-        clearGridView()
     }
     
     // - Allows to know which picker is touched
@@ -174,13 +171,7 @@ class ViewController: UIViewController {
         }
         present(activityController, animated: true)
     }
-    
-    // - Remove all images from the grid
-    private func clearGridView() {
-        for picker in allImagePickers {
-            picker.setImage(UIImage(named: "Plus"), for: .normal)
-        }
-    }
+
 }
 
 
